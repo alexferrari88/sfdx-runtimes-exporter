@@ -2,8 +2,8 @@
   "commandDescription": "Retrieve tests execution time for a given deployment",
   "deploymentFlagDescription": "id of the deployment to get tests execution time for",
   "outputFlagDescription": "where do you want to output the results",
-  "outputFlagOptions": "display,csv,json,S3,dynamoDB",
-  "outputFlagDefaultOption": "display",
+  "outputFlagOptions": "csv,json,S3,dynamoDB",
+  "outputFlagDefaultOption": "json",
   "targetFlagDescription": "target location to save the results (include filename for csv and json)",
   "errorNoOrgResults": "No results found for the org '%s'.",
   "examples": [

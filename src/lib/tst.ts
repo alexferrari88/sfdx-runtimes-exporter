@@ -40,14 +40,9 @@ export const getTestRunTimes = async (connection: Connection, deploymentId: stri
 
   testResults.sort((a, b) => b.time - a.time);
 
-  // const output: Array<Array<string | number>> = [
-  //   ['Class Name', 'Method Name', 'Time (ms)'],
-  // ]
   const output = testResults.map((v) => {
-    return { className: v.name, methodName: v.methodName, runTime: v.time };
+    return { className: v.name, methodName: v.methodName, runTime: Math.round(v.time) };
   }) as TestRunTimesData[];
-  // await fireHook('onTestRunTimes', output)
-  // return output
 
   return output;
 };
