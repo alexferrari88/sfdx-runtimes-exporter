@@ -10,6 +10,7 @@
   "examples": [
     "sfdx per:tst --deployment deploymentId --targetusername myOrg@example.com --output=s3 --target=s3://myBucket/myFolder",
     "sfdx per:tst --deployment deploymentId --targetusername myOrg@example.com --output=csv --target=myFile.csv",
-    "sfdx per:tst --deployment deploymentId --targetusername myOrg@example.com --output=dynamoDB --target=myTable"
+    "sfdx per:tst --deployment deploymentId --targetusername myOrg@example.com --output=dynamoDB --target=myTable",
+    "sfdx per:tst --deployment deploymentId --targetusername myOrg@example.com --output=json --target=myFile.json --threshold=10000"
   ]
 }
