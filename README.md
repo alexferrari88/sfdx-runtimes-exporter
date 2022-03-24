@@ -29,20 +29,20 @@ USAGE
 ```
 <!-- usagestop -->
 <!-- commands -->
-* [`sfdx runtimes:tests -i <id> [-o csv|json|S3|dynamoDB] [-f <string>] [-t <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-runtimestests--i-id--o-csvjsons3dynamodb--f-string--t-string--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+* [`sfdx runtimes:tests -i <id> [-o csv|json|S3|dynamoDB] [-d <string>] [-t <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-runtimestests--i-id--o-csvjsons3dynamodb--d-string--t-string--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 
-## `sfdx runtimes:tests -i <id> [-o csv|json|S3|dynamoDB] [-f <string>] [-t <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+## `sfdx runtimes:tests -i <id> [-o csv|json|S3|dynamoDB] [-d <string>] [-t <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
 Retrieve tests execution time for a given deployment
 
 ```
 USAGE
-  $ sfdx runtimes:tests -i <id> [-o csv|json|S3|dynamoDB] [-f <string>] [-t <string>] [-u <string>] [--apiversion 
+  $ sfdx runtimes:tests -i <id> [-o csv|json|S3|dynamoDB] [-d <string>] [-t <string>] [-u <string>] [--apiversion 
   <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
 
 OPTIONS
-  -f, --target=target                                                               target location to save the results
-                                                                                    (include filename for csv and json)
+  -d, --target=target                                                               target location to save the results
+                                                                                    (do not include the file name)
 
   -i, --deployment=deployment                                                       (required) id of the deployment to
                                                                                     get tests execution time for
@@ -69,6 +69,8 @@ EXAMPLES
   sfdx per:tst --deployment deploymentId --targetusername myOrg@example.com --output=s3 --target=s3://myBucket/myFolder
   sfdx per:tst --deployment deploymentId --targetusername myOrg@example.com --output=csv --target=myFile.csv
   sfdx per:tst --deployment deploymentId --targetusername myOrg@example.com --output=dynamoDB --target=myTable
+  sfdx per:tst --deployment deploymentId --targetusername myOrg@example.com --output=json --target=myFile.json 
+  --threshold=10000
 ```
 
 _See code: [src/commands/runtimes/tests.ts](https://github.com/alexferrari88/sfdx-runtimes-exporter/blob/v0.0.1/src/commands/runtimes/tests.ts)_

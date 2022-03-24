@@ -12,7 +12,7 @@ import {
   outputHandlerFunction,
   outputHandlersRegistry,
 } from '../../outputSaver';
-import { getTestRunTimes } from '../../runtimes';
+import { getDeployStatus, getTestRunTimes } from '../../runtimes';
 
 // Initialize Messages with the current plugin directory
 Messages.importMessagesDirectory(__dirname);
@@ -39,7 +39,7 @@ export default class Tst extends SfdxCommand {
       default: messages.getMessage('outputFlagDefaultOption'),
     }),
     target: flags.string({
-      char: 'f',
+      char: 'd',
       description: messages.getMessage('targetFlagDescription'),
     }),
     threshold: flags.string({
@@ -59,8 +59,9 @@ export default class Tst extends SfdxCommand {
     const conn = this.org.getConnection();
 
     try {
-      const testRunTimes = await getTestRunTimes(conn, deploymentId, threshold);
-      const jsonData = JSON.stringify(testRunTimes);
+      const deployResult = await getDeployStatus(conn, deploymentId);
+      const testRunTimes = getTestRunTimes(deployResult, threshold);
+      const jsonData = JSON.stringify({ deploymentId: testRunTimes });
 
       if (!outputFlag) return jsonData;
 
@@ -73,7 +74,7 @@ export default class Tst extends SfdxCommand {
 
       const outputHandler = outputHandlers[outputFlag] as outputHandlerFunction;
 
-      outputHandler(testRunTimes, targetFlag);
+      outputHandler(deploymentId, deployResult.completedDate, testRunTimes, targetFlag);
 
       // Return an object to be displayed with --json
       return jsonData;

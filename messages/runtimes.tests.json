@@ -4,7 +4,7 @@
   "outputFlagDescription": "where do you want to output the results",
   "outputFlagOptions": "csv,json,S3,dynamoDB",
   "outputFlagDefaultOption": "json",
-  "targetFlagDescription": "target location to save the results (include filename for csv and json)",
+  "targetFlagDescription": "target location to save the results (do not include the file name)",
   "thresholdFlagDescription": "return the tests execution time to only those above the threshold (in milliseconds)",
   "errorNoOrgResults": "No results found for the org '%s'.",
   "examples": [
