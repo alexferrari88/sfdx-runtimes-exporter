@@ -30,7 +30,7 @@ USAGE
 <!-- usagestop -->
 <!-- commands -->
 * [`sfdx hello:org [-n <string>] [-f] [-v <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-helloorg--n-string--f--v-string--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
-* [`sfdx perf:tsts -i <id> [-o display|csv|json|S3|dynamoDB] [-f <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-perftsts--i-id--o-displaycsvjsons3dynamodb--f-string--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+* [`sfdx runtimes:tests -i <id> [-o csv|json|S3|dynamoDB] [-f <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-runtimestests--i-id--o-csvjsons3dynamodb--f-string--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 
 ## `sfdx hello:org [-n <string>] [-f] [-v <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -66,14 +66,14 @@ EXAMPLES
 
 _See code: [src/commands/hello/org.ts](https://github.com/alexferrari88/sfdx-test-performance/blob/v0.0.1/src/commands/hello/org.ts)_
 
-## `sfdx perf:tsts -i <id> [-o display|csv|json|S3|dynamoDB] [-f <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+## `sfdx runtimes:tests -i <id> [-o csv|json|S3|dynamoDB] [-f <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
 Retrieve tests execution time for a given deployment
 
 ```
 USAGE
-  $ sfdx perf:tsts -i <id> [-o display|csv|json|S3|dynamoDB] [-f <string>] [-u <string>] [--apiversion <string>] 
-  [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
+  $ sfdx runtimes:tests -i <id> [-o csv|json|S3|dynamoDB] [-f <string>] [-u <string>] [--apiversion <string>] [--json] 
+  [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
 
 OPTIONS
   -f, --target=target                                                               target location to save the results
@@ -82,8 +82,8 @@ OPTIONS
   -i, --deployment=deployment                                                       (required) id of the deployment to
                                                                                     get tests execution time for
 
-  -o, --output=(display|csv|json|S3|dynamoDB)                                       [default: display] where do you want
-                                                                                    to output the results
+  -o, --output=(csv|json|S3|dynamoDB)                                               [default: json] where do you want to
+                                                                                    output the results
 
   -u, --targetusername=targetusername                                               username or alias for the target
                                                                                     org; overrides default target org
@@ -102,7 +102,7 @@ EXAMPLES
   sfdx per:tst --deployment deploymentId --targetusername myOrg@example.com --output=dynamoDB --target=myTable
 ```
 
-_See code: [src/commands/perf/tsts/index.ts](https://github.com/alexferrari88/sfdx-test-performance/blob/v0.0.1/src/commands/perf/tsts/index.ts)_
+_See code: [src/commands/runtimes/tests.ts](https://github.com/alexferrari88/sfdx-test-performance/blob/v0.0.1/src/commands/runtimes/tests.ts)_
 <!-- commandsstop -->
 <!-- debugging-your-plugin -->
 # Debugging your plugin
