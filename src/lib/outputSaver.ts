@@ -1,5 +1,5 @@
-﻿import { fs } from '@salesforce/core';
-import { TestRunTimesData } from './tst';
+﻿import * as fs from 'fs';
+import { TestRunTimesData } from './runtimes';
 
 export type outputHandlerFunction = (data: TestRunTimesData[], target: string) => void;
 type outputOptions = 'csv' | 'S3' | 'dynamoDB';

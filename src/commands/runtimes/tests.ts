@@ -10,8 +10,8 @@ import {
   exportToS3,
   outputHandlerFunction,
   outputHandlersRegistry,
-} from '../../../lib/outputSaver';
-import { getTestRunTimes } from '../../../lib/tst';
+} from '../../lib/outputSaver';
+import { getTestRunTimes } from '../../lib/runtimes';
 
 // Initialize Messages with the current plugin directory
 Messages.importMessagesDirectory(__dirname);
