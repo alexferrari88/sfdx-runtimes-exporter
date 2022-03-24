@@ -18,7 +18,7 @@ Messages.importMessagesDirectory(__dirname);
 
 // Load the specific messages for this file. Messages from @salesforce/command, @salesforce/core,
 // or any library that is using the messages framework can also be loaded this way.
-const messages = Messages.loadMessages('sfdx-test-performance', 'tst.index');
+const messages = Messages.loadMessages('sfdx-runtimes-exporter', 'runtimes.tests');
 
 export default class Tst extends SfdxCommand {
   public static description = messages.getMessage('commandDescription');
@@ -42,7 +42,6 @@ export default class Tst extends SfdxCommand {
       description: messages.getMessage('targetFlagDescription'),
     }),
   };
-  // Comment this out if your command does not require an org username
   protected static requiresUsername = true;
 
   public async run(): Promise<AnyJson> {

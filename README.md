@@ -17,11 +17,11 @@ Keep track of tests running times during your deployments.
 <!-- install -->
 <!-- usage -->
 ```sh-session
-$ npm install -g sfdx-test-performance
+$ npm install -g sfdx-runtimes-exporter
 $ sfdx COMMAND
 running command...
 $ sfdx (-v|--version|version)
-sfdx-test-performance/0.0.1 win32-x64 node-v17.7.1
+sfdx-runtimes-exporter/0.0.1 win32-x64 node-v17.7.1
 $ sfdx --help [COMMAND]
 USAGE
   $ sfdx COMMAND
@@ -29,42 +29,7 @@ USAGE
 ```
 <!-- usagestop -->
 <!-- commands -->
-* [`sfdx hello:org [-n <string>] [-f] [-v <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-helloorg--n-string--f--v-string--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 * [`sfdx runtimes:tests -i <id> [-o csv|json|S3|dynamoDB] [-f <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-runtimestests--i-id--o-csvjsons3dynamodb--f-string--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
-
-## `sfdx hello:org [-n <string>] [-f] [-v <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
-
-print a greeting and your org IDs
-
-```
-USAGE
-  $ sfdx hello:org [-n <string>] [-f] [-v <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel 
-  trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
-
-OPTIONS
-  -f, --force                                                                       example boolean flag
-  -n, --name=name                                                                   name to print
-
-  -u, --targetusername=targetusername                                               username or alias for the target
-                                                                                    org; overrides default target org
-
-  -v, --targetdevhubusername=targetdevhubusername                                   username or alias for the dev hub
-                                                                                    org; overrides default dev hub org
-
-  --apiversion=apiversion                                                           override the api version used for
-                                                                                    api requests made by this command
-
-  --json                                                                            format output as json
-
-  --loglevel=(trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL)  [default: warn] logging level for
-                                                                                    this command invocation
-
-EXAMPLES
-  sfdx hello:org --targetusername myOrg@example.com --targetdevhubusername devhub@org.com
-  sfdx hello:org --name myname --targetusername myOrg@example.com
-```
-
-_See code: [src/commands/hello/org.ts](https://github.com/alexferrari88/sfdx-test-performance/blob/v0.0.1/src/commands/hello/org.ts)_
 
 ## `sfdx runtimes:tests -i <id> [-o csv|json|S3|dynamoDB] [-f <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -102,7 +67,7 @@ EXAMPLES
   sfdx per:tst --deployment deploymentId --targetusername myOrg@example.com --output=dynamoDB --target=myTable
 ```
 
-_See code: [src/commands/runtimes/tests.ts](https://github.com/alexferrari88/sfdx-test-performance/blob/v0.0.1/src/commands/runtimes/tests.ts)_
+_See code: [src/commands/runtimes/tests.ts](https://github.com/alexferrari88/sfdx-runtimes-exporter/blob/v0.0.1/src/commands/runtimes/tests.ts)_
 <!-- commandsstop -->
 <!-- debugging-your-plugin -->
 # Debugging your plugin

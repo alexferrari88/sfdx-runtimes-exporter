@@ -1,9 +1,9 @@
 {
-  "name": "sfdx-test-performance",
-  "description": "Keep track of tests running times during your deployments.",
+  "name": "sfdx-runtimes-exporter",
+  "description": "Export running times of operations during deployment.",
   "version": "0.0.1",
   "author": "Alex Ferrari",
-  "bugs": "https://github.com/alexferrari88/sfdx-test-performance/issues",
+  "bugs": "https://github.com/alexferrari88/sfdx-runtimes-exporter/issues",
   "dependencies": {
     "@oclif/command": "^1",
     "@oclif/config": "^1",
@@ -56,7 +56,7 @@
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
-  "homepage": "https://github.com/alexferrari88/sfdx-test-performance",
+  "homepage": "https://github.com/alexferrari88/sfdx-runtimes-exporter",
   "keywords": [
     "sfdx-plugin"
   ],
@@ -65,15 +65,15 @@
     "commands": "./lib/commands",
     "bin": "sfdx",
     "topics": {
-      "hello": {
-        "description": "Commands to say hello."
+      "runtimes": {
+        "description": "Export runtimes for a deployment."
       }
     },
     "devPlugins": [
       "@oclif/plugin-help"
     ]
   },
-  "repository": "alexferrari88/sfdx-test-performance",
+  "repository": "alexferrari88/sfdx-runtimes-exporter",
   "scripts": {
     "build": "tsc -p .",
     "lint": "eslint src/**/*.ts test/**/*.ts",
