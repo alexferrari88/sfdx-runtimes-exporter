@@ -6,12 +6,13 @@ import { AnyJson } from '@salesforce/ts-types';
 import * as os from 'os';
 import {
   exportCSV,
+  exportJSON,
   exportToDynamoDB,
   exportToS3,
   outputHandlerFunction,
   outputHandlersRegistry,
-} from '../../lib/outputSaver';
-import { getTestRunTimes } from '../../lib/runtimes';
+} from '../../outputSaver';
+import { getTestRunTimes } from '../../runtimes';
 
 // Initialize Messages with the current plugin directory
 Messages.importMessagesDirectory(__dirname);
@@ -41,24 +42,34 @@ export default class Tst extends SfdxCommand {
       char: 'f',
       description: messages.getMessage('targetFlagDescription'),
     }),
+    threshold: flags.string({
+      char: 't',
+      description: messages.getMessage('thresholdFlagDescription'),
+    }),
   };
   protected static requiresUsername = true;
 
   public async run(): Promise<AnyJson> {
     const deploymentId = this.flags.deployment as string;
-    const outputFlag = this.flags.output as string;
+    const outputFlag = (this.flags.output as string).toLowerCase();
     const targetFlag = this.flags.target as string;
+    const threshold = this.flags.threshold ? parseInt(this.flags.threshold as string, 10) : undefined;
 
     // this.org is guaranteed because requiresUsername=true, as opposed to supportsUsername
     const conn = this.org.getConnection();
 
     try {
-      const testRunTimes = await getTestRunTimes(conn, deploymentId);
+      const testRunTimes = await getTestRunTimes(conn, deploymentId, threshold);
       const jsonData = JSON.stringify(testRunTimes);
 
       if (!outputFlag) return jsonData;
 
-      const outputHandlers: outputHandlersRegistry = { csv: exportCSV, S3: exportToS3, dynamoDB: exportToDynamoDB };
+      const outputHandlers: outputHandlersRegistry = {
+        csv: exportCSV,
+        json: exportJSON,
+        s3: exportToS3,
+        dynamodb: exportToDynamoDB,
+      };
 
       const outputHandler = outputHandlers[outputFlag] as outputHandlerFunction;
 

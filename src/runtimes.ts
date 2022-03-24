@@ -24,7 +24,11 @@ export interface TestRunTimesData {
   runTime: number;
 }
 
-export const getTestRunTimes = async (connection: Connection, deploymentId: string): Promise<TestRunTimesData[]> => {
+export const getTestRunTimes = async (
+  connection: Connection,
+  deploymentId: string,
+  threshold?: number
+): Promise<TestRunTimesData[]> => {
   const deployResult = (await connection.metadata.checkDeployStatus(
     deploymentId,
     true
@@ -34,9 +38,13 @@ export const getTestRunTimes = async (connection: Connection, deploymentId: stri
     throw new Error("Can't get test run times for failed deployments");
   }
 
-  const testResults: ApexSuccessfulTestResult[] = deployResult.details?.runTestResult?.successes;
+  let testResults: ApexSuccessfulTestResult[] = deployResult.details?.runTestResult?.successes;
 
   if (testResults.length === 0) throw new Error(`No tests were run in deployment ${deploymentId}`);
+
+  if (threshold) {
+    testResults = testResults.filter((testResult) => testResult.time >= threshold);
+  }
 
   testResults.sort((a, b) => b.time - a.time);
 

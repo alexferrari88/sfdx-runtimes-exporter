@@ -5,6 +5,7 @@
   "outputFlagOptions": "csv,json,S3,dynamoDB",
   "outputFlagDefaultOption": "json",
   "targetFlagDescription": "target location to save the results (include filename for csv and json)",
+  "thresholdFlagDescription": "return the tests execution time to only those above the threshold (in milliseconds)",
   "errorNoOrgResults": "No results found for the org '%s'.",
   "examples": [
     "sfdx per:tst --deployment deploymentId --targetusername myOrg@example.com --output=s3 --target=s3://myBucket/myFolder",

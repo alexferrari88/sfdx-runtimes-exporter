@@ -29,16 +29,16 @@ USAGE
 ```
 <!-- usagestop -->
 <!-- commands -->
-* [`sfdx runtimes:tests -i <id> [-o csv|json|S3|dynamoDB] [-f <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-runtimestests--i-id--o-csvjsons3dynamodb--f-string--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+* [`sfdx runtimes:tests -i <id> [-o csv|json|S3|dynamoDB] [-f <string>] [-t <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-runtimestests--i-id--o-csvjsons3dynamodb--f-string--t-string--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 
-## `sfdx runtimes:tests -i <id> [-o csv|json|S3|dynamoDB] [-f <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+## `sfdx runtimes:tests -i <id> [-o csv|json|S3|dynamoDB] [-f <string>] [-t <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
 Retrieve tests execution time for a given deployment
 
 ```
 USAGE
-  $ sfdx runtimes:tests -i <id> [-o csv|json|S3|dynamoDB] [-f <string>] [-u <string>] [--apiversion <string>] [--json] 
-  [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
+  $ sfdx runtimes:tests -i <id> [-o csv|json|S3|dynamoDB] [-f <string>] [-t <string>] [-u <string>] [--apiversion 
+  <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
 
 OPTIONS
   -f, --target=target                                                               target location to save the results
@@ -49,6 +49,10 @@ OPTIONS
 
   -o, --output=(csv|json|S3|dynamoDB)                                               [default: json] where do you want to
                                                                                     output the results
+
+  -t, --threshold=threshold                                                         return the tests execution time to
+                                                                                    only those above the threshold (in
+                                                                                    milliseconds)
 
   -u, --targetusername=targetusername                                               username or alias for the target
                                                                                     org; overrides default target org
