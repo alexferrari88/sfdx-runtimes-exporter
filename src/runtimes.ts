@@ -14,6 +14,7 @@ type DeployResultWithSuccessfulTestResults = DeployResult & {
   details: {
     runTestResult: {
       successes: ApexSuccessfulTestResult[];
+      totalTime: number;
     };
   };
 };

@@ -22,8 +22,8 @@ const messages = Messages.loadMessages('sfdx-runtimes-exporter', 'list');
 
 const csvMaker = (data: Deployment[]): string => {
   const output: string[][] = [];
-  output.push(['Deployment Id', 'Completion Date']);
-  const dataArray = data.map((v) => [v.Id, v.CompletedDate.toString()]);
+  output.push(['Deployment Id', 'Completion Date', 'Total Test Time (ms)']);
+  const dataArray = data.map((v) => [v.Id, v.CompletedDate.toString(), v.totalTestsTime.toString()]);
   output.push(...dataArray);
   return output.map((v) => v.join(',')).join('\n');
 };
