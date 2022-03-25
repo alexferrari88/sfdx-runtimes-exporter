@@ -1,0 +1,17 @@
+﻿{
+  "commandDescription": "Retrieve IDs of successful deployments with tests within a given time range",
+  "beforeFlagDescription": "date time before which the deployments should be retrieved",
+  "afterFlagDescription": "date time after which the deployments should be retrieved",
+  "outputFlagDescription": "where do you want to output the results",
+  "outputFlagOptions": "csv,json,S3,dynamoDB",
+  "outputFlagDefaultOption": "json",
+  "targetFlagDescription": "target location to save the results (do not include the file name)",
+  "latestFlagDescription": "retrieve only the latest deployments (provide the \"max\" flag to retrieve more than one)",
+  "maxFlagDescription": "maximum number of deployments to be retrieved",
+  "errorNoOrgResults": "No results found for the org '%s'.",
+  "examples": [
+    "sfdx list --targetusername myOrg@example.com --before \"01/02/2000 01:02:34\" --max=5 --output=csv --target=myFolder",
+    "sfdx list --targetusername myOrg@example.com --after \"01/02/2000 01:02:34\"  --output=csv --target=myFolder",
+    "sfdx list --targetusername myOrg@example.com --latest --max=5 --output=csv --target=myFolder"
+  ]
+}

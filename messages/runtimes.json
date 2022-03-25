@@ -8,9 +8,9 @@
   "thresholdFlagDescription": "return the tests execution time to only those above the threshold (in milliseconds)",
   "errorNoOrgResults": "No results found for the org '%s'.",
   "examples": [
-    "sfdx per:tst --deployment deploymentId --targetusername myOrg@example.com --output=s3 --target=s3://myBucket/myFolder",
-    "sfdx per:tst --deployment deploymentId --targetusername myOrg@example.com --output=csv --target=myFile.csv",
-    "sfdx per:tst --deployment deploymentId --targetusername myOrg@example.com --output=dynamoDB --target=myTable",
-    "sfdx per:tst --deployment deploymentId --targetusername myOrg@example.com --output=json --target=myFile.json --threshold=10000"
+    "sfdx runtimes --targetusername myOrg@example.com --deployment deploymentId --output=s3 --target=s3://myBucket/myFolder",
+    "sfdx runtimes --targetusername myOrg@example.com --deployment deploymentId --output=csv --target=myFolder",
+    "sfdx runtimes --targetusername myOrg@example.com --deployment deploymentId --output=dynamoDB --target=myTable",
+    "sfdx runtimes --targetusername myOrg@example.com --deployment deploymentId --output=json --target=myFolder --threshold=10000"
   ]
 }

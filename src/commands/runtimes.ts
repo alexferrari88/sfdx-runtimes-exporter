@@ -5,21 +5,28 @@ import { AnyJson } from '@salesforce/ts-types';
 // eslint-disable-next-line import/order
 import * as os from 'os';
 import {
-  exportCSV,
-  exportJSON,
-  exportToDynamoDB,
-  exportToS3,
-  outputHandlerFunction,
-  outputHandlersRegistry,
-} from '../../outputSaver';
-import { getDeployStatus, getTestRunTimes } from '../../runtimes';
+  exportLocationMakerFactory,
+  exportLocationMakerFunction,
+  outputExporterFactory,
+  outputExporterFunction,
+  processorFactoryType,
+} from '../outputSaver';
+import { getDeployStatus, getTestRunTimes, TestRunTimesData } from '../runtimes';
 
 // Initialize Messages with the current plugin directory
 Messages.importMessagesDirectory(__dirname);
 
 // Load the specific messages for this file. Messages from @salesforce/command, @salesforce/core,
 // or any library that is using the messages framework can also be loaded this way.
-const messages = Messages.loadMessages('sfdx-runtimes-exporter', 'runtimes.tests');
+const messages = Messages.loadMessages('sfdx-runtimes-exporter', 'runtimes');
+
+const csvMaker = (data: TestRunTimesData[]): string => {
+  const output: string[][] = [];
+  output.push(['Class Name', 'Method Name', 'Run Time (ms)']);
+  const dataArray = data.map((v) => [v.className, v.methodName, v.runTime.toString()]);
+  output.push(...dataArray);
+  return output.map((v) => v.join(',')).join('\n');
+};
 
 export default class Tst extends SfdxCommand {
   public static description = messages.getMessage('commandDescription');
@@ -42,9 +49,10 @@ export default class Tst extends SfdxCommand {
       char: 'd',
       description: messages.getMessage('targetFlagDescription'),
     }),
-    threshold: flags.string({
+    threshold: flags.integer({
       char: 't',
       description: messages.getMessage('thresholdFlagDescription'),
+      min: 1,
     }),
   };
   protected static requiresUsername = true;
@@ -65,16 +73,19 @@ export default class Tst extends SfdxCommand {
 
       if (!outputFlag) return jsonData;
 
-      const outputHandlers: outputHandlersRegistry = {
-        csv: exportCSV,
-        json: exportJSON,
-        s3: exportToS3,
-        dynamodb: exportToDynamoDB,
+      const processorFactory: processorFactoryType<TestRunTimesData> = {
+        csv: csvMaker,
+        json: JSON.stringify,
+        s3: null,
+        dynamodb: null,
       };
 
-      const outputHandler = outputHandlers[outputFlag] as outputHandlerFunction;
+      const outputExporter = outputExporterFactory[outputFlag] as outputExporterFunction<TestRunTimesData>;
+      const exportLocationMaker = exportLocationMakerFactory[outputFlag] as exportLocationMakerFunction;
+      const processor = processorFactory[outputFlag] as (data: TestRunTimesData[]) => string;
+      const finalPath = exportLocationMaker(targetFlag, deploymentId, deployResult.completedDate, outputFlag);
 
-      outputHandler(deploymentId, deployResult.completedDate, testRunTimes, targetFlag);
+      outputExporter(testRunTimes, finalPath, processor);
 
       // Return an object to be displayed with --json
       return jsonData;

@@ -14,6 +14,8 @@ Keep track of tests running times during your deployments.
 <!-- toc -->
 * [Debugging your plugin](#debugging-your-plugin)
 <!-- tocstop -->
+* [Debugging your plugin](#debugging-your-plugin)
+<!-- tocstop -->
 <!-- install -->
 <!-- usage -->
 ```sh-session
@@ -28,7 +30,114 @@ USAGE
 ...
 ```
 <!-- usagestop -->
+```sh-session
+$ npm install -g sfdx-runtimes-exporter
+$ sfdx COMMAND
+running command...
+$ sfdx (-v|--version|version)
+sfdx-runtimes-exporter/0.0.1 win32-x64 node-v17.7.1
+$ sfdx --help [COMMAND]
+USAGE
+  $ sfdx COMMAND
+...
+```
+<!-- usagestop -->
 <!-- commands -->
+* [`sfdx list [-b <datetime>] [-a <datetime>] [-l] [-m <integer>] [-o csv|json|S3|dynamoDB] [-d <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-list--b-datetime--a-datetime--l--m-integer--o-csvjsons3dynamodb--d-string--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+* [`sfdx runtimes -i <id> [-o csv|json|S3|dynamoDB] [-d <string>] [-t <integer>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-runtimes--i-id--o-csvjsons3dynamodb--d-string--t-integer--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+
+## `sfdx list [-b <datetime>] [-a <datetime>] [-l] [-m <integer>] [-o csv|json|S3|dynamoDB] [-d <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+
+Retrieve IDs of successful deployments with tests within a given time range
+
+```
+USAGE
+  $ sfdx list [-b <datetime>] [-a <datetime>] [-l] [-m <integer>] [-o csv|json|S3|dynamoDB] [-d <string>] [-u <string>] 
+  [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
+
+OPTIONS
+  -a, --after=after                                                                 date time after which the
+                                                                                    deployments should be retrieved
+
+  -b, --before=before                                                               date time before which the
+                                                                                    deployments should be retrieved
+
+  -d, --target=target                                                               target location to save the results
+                                                                                    (do not include the file name)
+
+  -l, --latest                                                                      retrieve only the latest deployments
+                                                                                    (provide the "max" flag to retrieve
+                                                                                    more than one)
+
+  -m, --max=max                                                                     [default: 10] maximum number of
+                                                                                    deployments to be retrieved
+
+  -o, --output=(csv|json|S3|dynamoDB)                                               [default: json] where do you want to
+                                                                                    output the results
+
+  -u, --targetusername=targetusername                                               username or alias for the target
+                                                                                    org; overrides default target org
+
+  --apiversion=apiversion                                                           override the api version used for
+                                                                                    api requests made by this command
+
+  --json                                                                            format output as json
+
+  --loglevel=(trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL)  [default: warn] logging level for
+                                                                                    this command invocation
+
+EXAMPLES
+  sfdx list --targetusername myOrg@example.com --before "01/02/2000 01:02:34" --max=5 --output=csv --target=myFolder
+  sfdx list --targetusername myOrg@example.com --after "01/02/2000 01:02:34"  --output=csv --target=myFolder
+  sfdx list --targetusername myOrg@example.com --latest --max=5 --output=csv --target=myFolder
+```
+
+_See code: [src/commands/list.ts](https://github.com/alexferrari88/sfdx-runtimes-exporter/blob/v0.0.1/src/commands/list.ts)_
+
+## `sfdx runtimes -i <id> [-o csv|json|S3|dynamoDB] [-d <string>] [-t <integer>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+
+Retrieve tests execution time for a given deployment
+
+```
+USAGE
+  $ sfdx runtimes -i <id> [-o csv|json|S3|dynamoDB] [-d <string>] [-t <integer>] [-u <string>] [--apiversion <string>] 
+  [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
+
+OPTIONS
+  -d, --target=target                                                               target location to save the results
+                                                                                    (do not include the file name)
+
+  -i, --deployment=deployment                                                       (required) id of the deployment to
+                                                                                    get tests execution time for
+
+  -o, --output=(csv|json|S3|dynamoDB)                                               [default: json] where do you want to
+                                                                                    output the results
+
+  -t, --threshold=threshold                                                         return the tests execution time to
+                                                                                    only those above the threshold (in
+                                                                                    milliseconds)
+
+  -u, --targetusername=targetusername                                               username or alias for the target
+                                                                                    org; overrides default target org
+
+  --apiversion=apiversion                                                           override the api version used for
+                                                                                    api requests made by this command
+
+  --json                                                                            format output as json
+
+  --loglevel=(trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL)  [default: warn] logging level for
+                                                                                    this command invocation
+
+EXAMPLES
+  sfdx runtimes --targetusername myOrg@example.com --deployment deploymentId --output=s3 --target=s3://myBucket/myFolder
+  sfdx runtimes --targetusername myOrg@example.com --deployment deploymentId --output=csv --target=myFolder
+  sfdx runtimes --targetusername myOrg@example.com --deployment deploymentId --output=dynamoDB --target=myTable
+  sfdx runtimes --targetusername myOrg@example.com --deployment deploymentId --output=json --target=myFolder 
+  --threshold=10000
+```
+
+_See code: [src/commands/runtimes.ts](https://github.com/alexferrari88/sfdx-runtimes-exporter/blob/v0.0.1/src/commands/runtimes.ts)_
+<!-- commandsstop -->
 * [`sfdx runtimes:tests -i <id> [-o csv|json|S3|dynamoDB] [-d <string>] [-t <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-runtimestests--i-id--o-csvjsons3dynamodb--d-string--t-string--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 
 ## `sfdx runtimes:tests -i <id> [-o csv|json|S3|dynamoDB] [-d <string>] [-t <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
