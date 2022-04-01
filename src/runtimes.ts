@@ -10,7 +10,7 @@ type ApexSuccessfulTestResult = {
   seeAllData?: boolean;
 };
 
-type DeployResultWithSuccessfulTestResults = DeployResult & {
+export type DeployResultWithSuccessfulTestResults = DeployResult & {
   details: {
     runTestResult: {
       successes: ApexSuccessfulTestResult[];

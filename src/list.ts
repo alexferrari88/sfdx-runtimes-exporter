@@ -1,6 +1,7 @@
 ﻿import { Connection } from '@salesforce/core';
-import { getDeployStatus } from './runtimes';
-
+// eslint-disable-next-line import/order
+import * as fs from 'fs';
+import { DeployResultWithSuccessfulTestResults, getDeployStatus } from './runtimes';
 export type Deployment = {
   Id: string;
   CompletedDate: string;
@@ -30,12 +31,29 @@ export const getDeployments = async (
   const deployments = await connection.tooling.query<Deployment>(query);
   if (deployments.records.length === 0) throw new Error('No deployments found');
   const results: Deployment[] = [];
+  const deployStatuses: Array<Promise<DeployResultWithSuccessfulTestResults>> = [];
   for (const deployment of deployments.records) {
-    results.push({
-      Id: deployment.Id,
-      CompletedDate: deployment.CompletedDate,
-      totalTestsTime: Math.round((await getDeployStatus(connection, deployment.Id)).details.runTestResult.totalTime),
-    });
+    // results.push({
+    //   Id: deployment.Id,
+    //   CompletedDate: deployment.CompletedDate,
+    //   totalTestsTime: Math.round((await getDeployStatus(connection, deployment.Id)).details.runTestResult.totalTime),
+    // });
+    deployStatuses.push(getDeployStatus(connection, deployment.Id));
+  }
+  try {
+    const deployStatusResults = await Promise.all(deployStatuses);
+    for (const deployStatus of deployStatusResults) {
+      results.push({
+        Id: deployStatus.id,
+        CompletedDate: deployStatus.completedDate,
+        totalTestsTime: Math.round(deployStatus.details.runTestResult.totalTime),
+      });
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Error getting all deploy statuses', error);
+    fs.writeFileSync(`partial-list-${new Date().toISOString()}.json`, JSON.stringify(results, null, 2));
+    throw error;
   }
 
   return results;
